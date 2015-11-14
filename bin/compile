@@ -3,6 +3,8 @@
 set -e
 set -x
 
+export BUILD_DIR=$1
+
 git submodule init
 git submodule update
 
