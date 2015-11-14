@@ -14,4 +14,14 @@ cp requirements.txt $1/
 heroku-buildpack-python/bin/detect $1
 heroku-buildpack-python/bin/compile $*
 
+# Syntax sugar.
+indent() {
+  sed "s/^/       /"
+}
+
+# Clean up pip output
+cleanup() {
+  sed -e 's/\.\.\.\+/.../g' | sed -e '/already satisfied/Id' | sed -e '/Overwriting/Id' | sed -e '/python executable/Id' | sed -e '/no previously-included files/Id'
+}
+
 /app/.heroku/python/bin/pip install http://funandplausible.solutions/python-recsys.tar.gz --exists-action=w --src=./.heroku/src --allow-all-external --disable-pip-version-check --no-cache-dir | cleanup | indent
