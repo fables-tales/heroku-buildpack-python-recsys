@@ -8,6 +8,8 @@ cp Aptfile $1/
 heroku-buildpack-apt/bin/detect $1
 heroku-buildpack-apt/bin/compile $*
 
+source .profile.d/000_apt.sh
+
 cp requirements.txt $1/
 heroku-buildpack-python/bin/detect $1
 heroku-buildpack-python/bin/compile $*
