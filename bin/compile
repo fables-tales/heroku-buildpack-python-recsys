@@ -24,10 +24,24 @@ export PKG_CONFIG_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:$BUIL
 find .
 echo "-------------------"
 find $BUILD_DIR
+cp stage_1_requirements.txt $1/requirements.txt
+heroku-buildpack-python/bin/detect $1
+heroku-buildpack-python/bin/compile $*
+
+# Prepend proper path buildpack use.
+export PATH=$BUILD_DIR/.heroku/python/bin:$BUILD_DIR/.heroku/vendor/bin:$PATH
+export PYTHONUNBUFFERED=1
+export LANG=en_US.UTF-8
+export C_INCLUDE_PATH=/app/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:/app/.heroku/python/include
+export CPLUS_INCLUDE_PATH=/app/.heroku/vendor/include:$BUILD_DIR/.heroku/vendor/include:/app/.heroku/python/include
+export LIBRARY_PATH=$LIBRARY_PATH:/app/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:/app/.heroku/python/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:/app/.heroku/python/lib
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/app/.heroku/vendor/lib/pkg-config:$BUILD_DIR/.heroku/vendor/lib/pkg-config:/app/.heroku/python/lib/pkg-config
+
 python -c "import numpy; print numpy"
 
 
-cp requirements.txt $1/
+cp stage_2_requirements.txt $1/requirements.txt
 heroku-buildpack-python/bin/detect $1
 heroku-buildpack-python/bin/compile $*
 
