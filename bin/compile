@@ -1,0 +1,15 @@
+#!/bin/bash
+
+git submodule init
+git submodule update
+
+cp Aptfile $1/
+
+heroku-buildpack-apt/bin/detect $1
+heroku-buildpack-apt/bin/compile $*
+
+cp requirements.txt $1/
+heroku-buildpack-python/bin/detect $1
+heroku-buildpack-python/bin/compile $*
+
+wget http://funandplausible.solutions/python-recsys.tar

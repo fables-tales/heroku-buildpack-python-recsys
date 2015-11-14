@@ -1,0 +1,6 @@
+[submodule "heroku-buildpack-python"]
+	path = heroku-buildpack-python
+	url = https://github.com/heroku/heroku-buildpack-python
+[submodule "heroku-buildpack-apt"]
+	path = heroku-buildpack-apt
+	url = https://github.com/ddollar/heroku-buildpack-apt

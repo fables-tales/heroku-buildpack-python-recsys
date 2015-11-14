@@ -1,0 +1,6 @@
+build-essential
+python-dev
+gfortran
+libblas-dev liblapack-dev libatlas-dev
+python-numpy
+python-scipy
